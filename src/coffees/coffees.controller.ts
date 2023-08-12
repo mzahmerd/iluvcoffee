@@ -29,7 +29,7 @@ export class CoffeesController {
   }
   @Post()
   create(@Body() createCoffeeDot: CreateCoffeeDto) {
-    this.coffeeService.create(createCoffeeDot);
+    return this.coffeeService.create(createCoffeeDot);
   }
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCoffeeDto: UpdateCoffeeDto) {

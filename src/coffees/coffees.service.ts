@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Coffee } from 'src/entities/coffee.entity';
+import { Coffee } from 'src/coffees/entities/coffee.entity';
 import { Repository } from 'typeorm';
-import { UpdateCoffeeDto } from './dto/update-coffee.dto/update-coffee.dto';
+import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 
 @Injectable()
 export class CoffeesService {
@@ -12,11 +12,15 @@ export class CoffeesService {
   ) {}
 
   findAll() {
-    return this.coffeeRepository.find();
+    return this.coffeeRepository.find({ relations: ['flavors'] });
   }
 
   async findOne(id: number) {
-    const coffee = await this.coffeeRepository.findOneBy({ id });
+    const coffee = await this.coffeeRepository.findOne({
+      where: { id },
+      relations: ['flavors'],
+    });
+
     if (!coffee) {
       throw new NotFoundException(`Coffee #${id} not found`);
     }

@@ -15,13 +15,12 @@ export class CoffeesController {
   }
   @Get(':id')
   @HttpCode(HttpStatus.OK)
-  findOne(@Param('id') id: string) {
-    return this.coffeeService.findOne(id);
+  findOne(@Param('id') id: number) {
+    return this.coffeeService.findOne('' + id);
   }
   @Post()
   create(@Body() createCoffeeDot: CreateCoffeeDto) {
     this.coffeeService.create(createCoffeeDot);
-    return createCoffeeDot;
   }
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCoffeeDto: UpdateCoffeeDto) {

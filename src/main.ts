@@ -9,6 +9,9 @@ async function bootstrap() {
       whitelist: true, // this stripped out unwanted or invalid properties from req body.
       forbidNonWhitelisted: true, // forbid sending non-whitelisted properties
       transform: true, // autotransform payloads to DTO instance and also params primitive types
+      transformOptions: {
+        enableImplicitConversion: true, // so that we can remove explicit type decor in our dto
+      },
     }),
   );
   await app.listen(3000);
